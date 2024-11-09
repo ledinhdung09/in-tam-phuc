@@ -1,8 +1,24 @@
-import { Statistic, Layout, theme, Row, Col, Button, Form, Input, Typography, Tag, Table, Select, Space, InputNumber, DatePicker, Card } from "antd";
+import {
+  Statistic,
+  Layout,
+  theme,
+  Row,
+  Col,
+  Button,
+  Form,
+  Input,
+  Typography,
+  Tag,
+  Table,
+  Select,
+  Space,
+  InputNumber,
+  DatePicker,
+  Card,
+} from "antd";
 const { Title, Text } = Typography;
 const { Content } = Layout;
 import { PrinterOutlined, DeleteOutlined } from "@ant-design/icons";
-
 
 function OrderPrinting() {
   const {
@@ -54,7 +70,9 @@ function OrderPrinting() {
       title: "Đơn giá",
       dataIndex: "unitPrice",
       key: "unitPrice",
-      render: (price) => <Input defaultValue={price} prefix="đ" style={{ width: 80 }}/>,
+      render: (price) => (
+        <Input defaultValue={price} prefix="đ" style={{ width: 80 }} />
+      ),
     },
     {
       title: "Nhà in",
@@ -82,9 +100,7 @@ function OrderPrinting() {
     {
       title: "",
       key: "action",
-      render: () => (
-        <Button type="text" icon={<DeleteOutlined />} danger />
-      ),
+      render: () => <Button type="text" icon={<DeleteOutlined />} danger />,
     },
   ];
 
@@ -93,14 +109,10 @@ function OrderPrinting() {
       key: "1",
       productDetails: {
         name: "Bao thư 22x12 cm",
-        attributes: [
-          "Kích thước",
-          "Loại in",
-          "Số mặt",
-          "Chất liệu",
-        ],
+        attributes: ["Kích thước", "Loại in", "Số mặt", "Chất liệu"],
       },
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjMgOPQJdwm1NJZAjf7OKalebLcUIxgL0IbA&s",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjMgOPQJdwm1NJZAjf7OKalebLcUIxgL0IbA&s",
       quantity: 200,
       unitPrice: "1.550",
       totalPrice: "310.000",
@@ -109,14 +121,10 @@ function OrderPrinting() {
       key: "2",
       productDetails: {
         name: "Bao thư 22x12 cm",
-        attributes: [
-          "Kích thước",
-          "Loại in",
-          "Số mặt",
-          "Chất liệu",
-        ],
+        attributes: ["Kích thước", "Loại in", "Số mặt", "Chất liệu"],
       },
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjMgOPQJdwm1NJZAjf7OKalebLcUIxgL0IbA&s",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjMgOPQJdwm1NJZAjf7OKalebLcUIxgL0IbA&s",
       quantity: 200,
       unitPrice: "1.550",
       totalPrice: "310.000",
@@ -140,7 +148,6 @@ function OrderPrinting() {
               marginRight: 16,
               paddingRight: 16,
               fontWeight: "bold",
-          
             }}
           >
             <Statistic
@@ -156,7 +163,6 @@ function OrderPrinting() {
               marginRight: 16,
               paddingRight: 16,
               fontWeight: "bold",
-          
             }}
           >
             <Statistic
@@ -165,21 +171,19 @@ function OrderPrinting() {
               valueStyle={{ color: "#000", fontWeight: "bold" }}
             />
           </Col>
-            
+
           <Col>
             <Statistic
               style={{
                 fontWeight: "bold",
               }}
               title="Trạng thái"
-              valueRender={() => (
-                <Tag color="green">Đã nhận hàng</Tag>
-              )}
+              valueRender={() => <Tag color="green">Đã nhận hàng</Tag>}
               valueStyle={{ color: "#000", fontWeight: "bold" }}
             />
           </Col>
         </Space>
-          
+
         <Button
           type="primary"
           icon={<PrinterOutlined />}
@@ -204,7 +208,7 @@ function OrderPrinting() {
           rowKey="key"
         />
       </Card>
-    
+
       <Row>
         <Col
           style={{
@@ -214,47 +218,59 @@ function OrderPrinting() {
             marginRight: 20,
             maxHeight: 250,
             background: colorBgContainer,
-            
           }}
         >
-          <Title style={{ margin: 0, marginBottom: 16, fontWeight: "bold" }} level={4 }>
+          <Title
+            style={{ margin: 0, marginBottom: 16, fontWeight: "bold" }}
+            level={4}
+          >
             Thông tin thêm
           </Title>
           <Form form={form} layout="vertical" autoComplete="off">
             <Row>
               <Col>
-              <Typography style={{
-                  fontWeight: "bold",
-                  marginBottom: "8px"
-                }}>
+                <Typography
+                  style={{
+                    fontWeight: "bold",
+                    marginBottom: "8px",
+                  }}
+                >
                   Người đặt hàng
                 </Typography>
                 <Space>
                   <Select
                     defaultValue="Phạm Thị Mộng Thùy"
                     style={{ width: "650px" }}
-                    options={[{ value: 'Phạm Thị Mộng Thùy', label: 'Phạm Thị Mộng Thùy' }]}  
+                    options={[
+                      {
+                        value: "Phạm Thị Mộng Thùy",
+                        label: "Phạm Thị Mộng Thùy",
+                      },
+                    ]}
                   />
                 </Space>
               </Col>
             </Row>
             <Row gutter={16}>
               <Col flex={1}>
-                <Typography style={{
-                  fontWeight: "bold",
-                  marginTop: "8px",
-                  marginBottom: "8px"
-                }}>Ngày nhận hàng dự kiến</Typography>
+                <Typography
+                  style={{
+                    fontWeight: "bold",
+                    marginTop: "8px",
+                    marginBottom: "8px",
+                  }}
+                >
+                  Ngày nhận hàng dự kiến
+                </Typography>
                 <Space>
                   <Select
                     defaultValue="20/09/2024"
                     style={{ width: "650px" }}
-                    options={[{ value: '20/09/2024', label: '20/09/2024' }]}  
+                    options={[{ value: "20/09/2024", label: "20/09/2024" }]}
                   />
                 </Space>
               </Col>
             </Row>
-            
           </Form>
         </Col>
         <Col
@@ -266,10 +282,13 @@ function OrderPrinting() {
             background: colorBgContainer,
           }}
         >
-          <Title style={{ margin: 0, marginBottom: 16, fontWeight: "bold" }} level={4}>
+          <Title
+            style={{ margin: 0, marginBottom: 16, fontWeight: "bold" }}
+            level={4}
+          >
             Thông tin hóa đơn
           </Title>
-          
+
           <Space direction="vertical" style={{ width: "100%" }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Text>Tổng tiền hàng:</Text>
@@ -292,28 +311,42 @@ function OrderPrinting() {
               <Text>Đặt cọc:</Text>
               <Text></Text>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "12px",
+              }}
+            >
               <Text>Còn lại:</Text>
-              <Text>  </Text>
+              <Text> </Text>
             </div>
           </Space>
-          
 
           <Form.Item name="note">
             <Input.TextArea placeholder="Nhập ghi chú" rows={3} />
           </Form.Item>
           <Button
-             type="primary"
+            type="primary"
             style={{
-            float: "right"
-            }}>XÁC NHẬN ĐẶT HÀNG
+              float: "right",
+            }}
+          >
+            XÁC NHẬN ĐẶT HÀNG
           </Button>
         </Col>
       </Row>
 
       <Button
-        color="danger" variant="solid" Solid
-      >Xóa phiếu
+        color="danger"
+        style={{
+          marginTop: "1rem",
+          marginBottom: "1rem",
+        }}
+        variant="solid"
+        Solid
+      >
+        Xóa phiếu
       </Button>
     </Content>
   );
