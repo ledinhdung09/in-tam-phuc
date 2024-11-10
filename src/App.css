@@ -1,0 +1,13 @@
+body {
+  font-family: Arial, sans-serif !important;
+}
+
+/* Ghi đè font chữ của các thành phần Ant Design */
+.ant-typography,
+.ant-btn,
+.ant-input,
+.ant-select,
+.ant-modal,
+.ant-layout {
+  font-family: Arial, sans-serif;
+}

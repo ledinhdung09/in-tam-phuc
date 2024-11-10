@@ -1,5 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import LayoutDashboard from "./components/Layout";
+import "./App.css";
 
 function App() {
   return (

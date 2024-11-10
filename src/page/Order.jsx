@@ -1,7 +1,7 @@
-import { Upload, Statistic, Layout, theme, Row, Col, Button, Form, Input, Typography, Tag, Table, Select, Space, InputNumber, DatePicker, Card } from "antd";
+import { List, Modal, Upload, Statistic, Layout, theme, Row, Col, Button, Form, Input, Typography, Tag, Table, Select, Space, InputNumber, DatePicker, Card } from "antd";
 const { Title, Text } = Typography;
 const { Content } = Layout;
-import { PrinterOutlined, DeleteOutlined, LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { PrinterOutlined, DeleteOutlined, LoadingOutlined, PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import { useState } from "react";
 
 const getBase64 = (img, callback) => {
@@ -20,6 +20,9 @@ const beforeUpload = (file) => {
   }
   return isJpgOrPng && isLt2M;
 };
+
+
+
 
 function Order() {
   const [loading, setLoading] = useState(false);
@@ -55,6 +58,15 @@ function Order() {
       </div>
     </button>
   );
+
+  // const onChange = (value) => {
+  //   console.log(`selected ${value}`);
+  // };
+  // const onSearch = (value) => {
+  //   console.log('search:', value);
+  // };
+
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -197,6 +209,28 @@ function Order() {
     },
   ];
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const customers = [
+    { name: 'ANH HÙNG', phone: '0982.82x.xxx' },
+    { name: 'CHỊ THẢO', phone: '0383.xxx.xxx' },
+    { name: 'ANH MẠNH', phone: '0621.xxx.xxx' },
+  ];
+
+  const handleSelectCustomer = (customer) => {
+    setSelectedCustomer(customer);
+    setIsModalVisible(false); // Đóng modal sau khi chọn khách hàng
+  }
+
   return (
     <Content
       style={{
@@ -272,7 +306,16 @@ function Order() {
         </Space>
       </div>
 
-      <Row>
+
+
+      <Row style={{
+        justifyContent: "space-between",
+        
+      }}>
+        <Row style={{
+        flexDirection: "column",
+        gap: 16
+      }}>
         <Col
           style={{
             padding: "1rem",
@@ -281,6 +324,8 @@ function Order() {
             marginRight: 20,
             maxHeight: 250,
             background: colorBgContainer,
+              width: 600,
+  
             
           }}
         >
@@ -288,40 +333,89 @@ function Order() {
             Thông tin khách hàng
           </Title>
 
-          <Space direction="vertical" style={{ width: "100%" }}>
-            <Title style={{
-              marginTop: 0
-            }} level={4}>Anh Hùng</Title>
+            {!selectedCustomer ? (
+              <Button style={{ color: "black" }} type="link" onClick={showModal}>
+                Chọn khách hàng
+              </Button>
+            ) : (
+              <Space direction="vertical" style={{ width: "100%" }}>
+              <Title style={{
+                marginTop: 0
+                  }} level={4}
+                  onClick={showModal}
+                  >Anh Hùng</Title>
+  
+              <Text>Công ty TNHH ABC</Text>
+              <div style={{ display: "flex" }}>
+                <Text>Mã số thuế: </Text>
+                <Text></Text>
+              </div>
+              <div style={{ display: "flex"}}>
+                <Text>Số điện thoại: </Text>
+                <Text></Text>
+              </div>
+              <div style={{ display: "flex"}}>
+                <Text>Địa chỉ: 102 Nguyễn Văn Linh, Phường X, Quận Y, TP. HCM</Text>
+              </div>
+            </Space>
+            )
+            
+            }
+           
 
-            <Text>Công ty TNHH ABC</Text>
-            <div style={{ display: "flex" }}>
-              <Text>Mã số thuế: </Text>
-              <Text></Text>
-            </div>
-            <div style={{ display: "flex"}}>
-              <Text>Số điện thoại: </Text>
-              <Text></Text>
-            </div>
-            <div style={{ display: "flex"}}>
-              <Text>Địa chỉ: 102 Nguyễn Văn Linh, Phường X, Quận Y, TP. HCM</Text>
-            </div>
-          </Space>
-        
+          
+            <Modal
+              title="Chọn khách hàng"
+              visible={isModalVisible}
+              onCancel={handleCancel}
+              footer={null}
+            >
+              <Input
+                placeholder="Nhập số điện thoại để tìm khách hàng"
+                prefix={<SearchOutlined />}
+                style={{ marginBottom: 16 }}
+              />
+              <List
+                itemLayout="horizontal"
+                dataSource={customers}
+                renderItem={(customer) => (
+                  <List.Item
+                    onClick={() => handleSelectCustomer(customer.name)}
+                  >
+                    <List.Item.Meta
+                      title={customer.name}
+                    />
+                    <List.Item.Meta
+                       description={customer.phone}
+                    />
+                  </List.Item>
+                )}
+              />
+              <Button type="primary" block style={{ marginTop: 16 }}>
+                Tạo khách hàng mới
+              </Button>
+            </Modal>
+
+           
+            
+          
         </Col>
         <Col
           style={{
             padding: "1rem",
             borderRadius: "10px",
-            flex: 1,
-            height: "fit-content",
-            background: colorBgContainer,
+         
+            marginRight: 20,
+            maxHeight: 250,
+              background: colorBgContainer,
+            width: 600
           }}
         >
-          <Title style={{ margin: 0, marginBottom: 16, fontWeight: "bold" }} level={4}>
+          <Title style={{fontWeight: "bold", marginTop: 0 }} level={4}>
             Ghi chú về khách hàng
           </Title>
           
-          <Space direction="vertical" style={{ width: "100%" }}>
+          <Space direction="vertical">
           
           <ul>
               <li>Kỹ tính</li>
@@ -334,30 +428,76 @@ function Order() {
 
           </Space>
         
+          </Col>
           
-          <Button
-            Text
-            type="text"
+        </Row>
+
+        <Row>
+          <Col
             style={{
-                float: "right"
+              padding: "1rem",
+              borderRadius: "10px",
+              flex: 2,
+              marginRight: 20,
+              maxHeight: 250,
+              background: colorBgContainer,
+              
             }}
           >
-            Xem chi tiết
-          </Button>
-  
+            <Title style={{ margin: 0, marginBottom: 16, fontWeight: "bold" }} level={4 }>
+            Thông tin người nhận
+            </Title>
+
+            <Space direction="vertical" style={{ width: "100%" }}>
+              <Input
+                style={{ width: 400}}
+                placeholder="Tên người nhận" 
+                />
+                <Input
+                style={{ }}
+                placeholder="Số điện thoại" 
+                />
+                <Input
+                style={{ height: 100 }}
+                placeholder="Địa chỉ nhận hàng" 
+              />
+            </Space>
           
-        </Col>
+          </Col>
+        </Row>
+
+        
+        
       </Row>
 
+      
+          
+      
       <Card
         style={{
           margin: "20px auto",
-          padding: "20px",
+          padding: "4px",
           borderRadius: 10,
         }}
       >
-        <Title level={3}>Sản phẩm</Title>
-        
+         <Row style={{
+          background: colorBgContainer,
+          borderRadius: "10px",
+
+        }}>
+          <Title style={{ margin: 0, marginBottom: 4, fontWeight: "bold" }} level={4}>
+            Sản phẩm  
+          </Title>
+
+          <Input
+            style={{
+              width: "100%",
+              marginTop: 8,
+              marginBottom: 8
+            }}
+            addonBefore={<SearchOutlined />} placeholder="Tìm kiếm sản phẩm" />
+        </Row>
+
         <Table
           columns={columns}
           dataSource={data}
@@ -373,7 +513,7 @@ function Order() {
             borderRadius: "10px",
             flex: 2,
             marginRight: 20,
-            maxHeight: 250,
+            maxHeight: 350,
             background: colorBgContainer,
             
           }}
@@ -436,7 +576,9 @@ function Order() {
               <Col>
               <Typography style={{
                   fontWeight: "bold",
-                  marginBottom: "8px"
+                  marginBottom: "8px",
+                  marginTop: "8px"
+
                 }}>
                   Địa điểm nhận hàng
                 </Typography>
