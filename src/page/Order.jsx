@@ -1,38 +1,61 @@
-import { List, Modal, Upload, Statistic, Layout, theme, Row, Col, Button, Form, Input, Typography, Tag, Table, Select, Space, InputNumber, DatePicker, Card } from "antd";
+import {
+  List,
+  Modal,
+  Upload,
+  Statistic,
+  Layout,
+  theme,
+  Row,
+  Col,
+  Button,
+  Form,
+  Input,
+  Typography,
+  Tag,
+  Table,
+  Select,
+  Space,
+  InputNumber,
+  DatePicker,
+  Card,
+} from "antd";
 const { Title, Text } = Typography;
 const { Content } = Layout;
-import { PrinterOutlined, DeleteOutlined, LoadingOutlined, PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  PrinterOutlined,
+  DeleteOutlined,
+  LoadingOutlined,
+  PlusOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import { useState } from "react";
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
+  reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
 };
 const beforeUpload = (file) => {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
   if (!isJpgOrPng) {
-    message.error('You can only upload JPG/PNG file!');
+    message.error("You can only upload JPG/PNG file!");
   }
   const isLt2M = file.size / 1024 / 1024 < 2;
   if (!isLt2M) {
-    message.error('Image must smaller than 2MB!');
+    message.error("Image must smaller than 2MB!");
   }
   return isJpgOrPng && isLt2M;
 };
-
-
-
 
 function Order() {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
   const handleChange = (info) => {
-    if (info.file.status === 'uploading') {
+    if (info.file.status === "uploading") {
       setLoading(true);
       return;
     }
-    if (info.file.status === 'done') {
+    if (info.file.status === "done") {
       // Get this url from response in real world.
       getBase64(info.file.originFileObj, (url) => {
         setLoading(false);
@@ -44,7 +67,7 @@ function Order() {
     <button
       style={{
         border: 0,
-        background: 'none',
+        background: "none",
       }}
       type="button"
     >
@@ -65,7 +88,6 @@ function Order() {
   // const onSearch = (value) => {
   //   console.log('search:', value);
   // };
-
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -112,7 +134,7 @@ function Order() {
                 src={imageUrl}
                 alt="avatar"
                 style={{
-                  width: '100%',
+                  width: "100%",
                 }}
               />
             ) : (
@@ -140,7 +162,9 @@ function Order() {
       title: "Đơn giá",
       dataIndex: "unitPrice",
       key: "unitPrice",
-      render: (price) => <Input defaultValue={price} prefix="đ" style={{ width: 80 }}/>,
+      render: (price) => (
+        <Input defaultValue={price} prefix="đ" style={{ width: 80 }} />
+      ),
     },
     {
       title: "Nhà in",
@@ -168,9 +192,7 @@ function Order() {
     {
       title: "",
       key: "action",
-      render: () => (
-        <Button type="text" icon={<DeleteOutlined />} danger />
-      ),
+      render: () => <Button type="text" icon={<DeleteOutlined />} danger />,
     },
   ];
 
@@ -179,14 +201,10 @@ function Order() {
       key: "1",
       productDetails: {
         name: "Bao thư 22x12 cm",
-        attributes: [
-          "Kích thước",
-          "Loại in",
-          "Số mặt",
-          "Chất liệu",
-        ],
+        attributes: ["Kích thước", "Loại in", "Số mặt", "Chất liệu"],
       },
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjMgOPQJdwm1NJZAjf7OKalebLcUIxgL0IbA&s",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjMgOPQJdwm1NJZAjf7OKalebLcUIxgL0IbA&s",
       quantity: 200,
       unitPrice: "1.550",
       totalPrice: "310.000",
@@ -195,14 +213,10 @@ function Order() {
       key: "2",
       productDetails: {
         name: "Bao thư 22x12 cm",
-        attributes: [
-          "Kích thước",
-          "Loại in",
-          "Số mặt",
-          "Chất liệu",
-        ],
+        attributes: ["Kích thước", "Loại in", "Số mặt", "Chất liệu"],
       },
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjMgOPQJdwm1NJZAjf7OKalebLcUIxgL0IbA&s",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjMgOPQJdwm1NJZAjf7OKalebLcUIxgL0IbA&s",
       quantity: 200,
       unitPrice: "1.550",
       totalPrice: "310.000",
@@ -221,15 +235,15 @@ function Order() {
   };
 
   const customers = [
-    { name: 'ANH HÙNG', phone: '0982.82x.xxx' },
-    { name: 'CHỊ THẢO', phone: '0383.xxx.xxx' },
-    { name: 'ANH MẠNH', phone: '0621.xxx.xxx' },
+    { name: "ANH HÙNG", phone: "0982.82x.xxx" },
+    { name: "CHỊ THẢO", phone: "0383.xxx.xxx" },
+    { name: "ANH MẠNH", phone: "0621.xxx.xxx" },
   ];
 
   const handleSelectCustomer = (customer) => {
     setSelectedCustomer(customer);
     setIsModalVisible(false); // Đóng modal sau khi chọn khách hàng
-  }
+  };
 
   return (
     <Content
@@ -248,7 +262,6 @@ function Order() {
               marginRight: 16,
               paddingRight: 16,
               fontWeight: "bold",
-          
             }}
           >
             <Statistic
@@ -264,7 +277,6 @@ function Order() {
               marginRight: 16,
               paddingRight: 16,
               fontWeight: "bold",
-          
             }}
           >
             <Statistic
@@ -273,97 +285,94 @@ function Order() {
               valueStyle={{ color: "#000", fontWeight: "bold" }}
             />
           </Col>
-            
+
           <Col>
             <Statistic
               style={{
                 fontWeight: "bold",
               }}
               title="Trạng thái"
-              valueRender={() => (
-                <Tag color="green">Đã nhận hàng</Tag>
-              )}
+              valueRender={() => <Tag color="green">Đã nhận hàng</Tag>}
               valueStyle={{ color: "#000", fontWeight: "bold" }}
             />
           </Col>
         </Space>
-          
-        <Space
-          style={{ float: "right" }}
-        >
-          <Button
-            type="primary"
-          >
-          Trả hàng
-          </Button>
-          
-          <Button
-            type="primary"
-            icon={<PrinterOutlined />}
-          >
+
+        <Space style={{ float: "right" }}>
+          <Button type="primary">Trả hàng</Button>
+
+          <Button type="primary" icon={<PrinterOutlined />}>
             In
           </Button>
         </Space>
       </div>
 
-
-
-      <Row style={{
-        justifyContent: "space-between",
-        
-      }}>
-        <Row style={{
-        flexDirection: "column",
-        gap: 16
-      }}>
-        <Col
+      <Row
+        style={{
+          justifyContent: "space-between",
+        }}
+      >
+        <Row
           style={{
-            padding: "1rem",
-            borderRadius: "10px",
-            flex: 2,
-            marginRight: 20,
-            maxHeight: 250,
-            background: colorBgContainer,
-              width: 600,
-  
-            
+            flexDirection: "column",
+            gap: 16,
           }}
         >
-          <Title style={{ margin: 0, marginBottom: 16, fontWeight: "bold" }} level={4 }>
-            Thông tin khách hàng
-          </Title>
+          <Col
+            style={{
+              padding: "1rem",
+              borderRadius: "10px",
+              flex: 2,
+              marginRight: 20,
+              maxHeight: 250,
+              background: colorBgContainer,
+              width: 600,
+            }}
+          >
+            <Title
+              style={{ margin: 0, marginBottom: 16, fontWeight: "bold" }}
+              level={4}
+            >
+              Thông tin khách hàng
+            </Title>
 
             {!selectedCustomer ? (
-              <Button style={{ color: "black" }} type="link" onClick={showModal}>
+              <Button
+                style={{ color: "black" }}
+                type="link"
+                onClick={showModal}
+              >
                 Chọn khách hàng
               </Button>
             ) : (
               <Space direction="vertical" style={{ width: "100%" }}>
-              <Title style={{
-                marginTop: 0
-                  }} level={4}
+                <Title
+                  style={{
+                    marginTop: 0,
+                  }}
+                  level={4}
                   onClick={showModal}
-                  >Anh Hùng</Title>
-  
-              <Text>Công ty TNHH ABC</Text>
-              <div style={{ display: "flex" }}>
-                <Text>Mã số thuế: </Text>
-                <Text></Text>
-              </div>
-              <div style={{ display: "flex"}}>
-                <Text>Số điện thoại: </Text>
-                <Text></Text>
-              </div>
-              <div style={{ display: "flex"}}>
-                <Text>Địa chỉ: 102 Nguyễn Văn Linh, Phường X, Quận Y, TP. HCM</Text>
-              </div>
-            </Space>
-            )
-            
-            }
-           
+                >
+                  Anh Hùng
+                </Title>
 
-          
+                <Text>Công ty TNHH ABC</Text>
+                <div style={{ display: "flex" }}>
+                  <Text>Mã số thuế: </Text>
+                  <Text></Text>
+                </div>
+                <div style={{ display: "flex" }}>
+                  <Text>Số điện thoại: </Text>
+                  <Text></Text>
+                </div>
+                <div style={{ display: "flex" }}>
+                  <Text>
+                    Địa chỉ: 102 Nguyễn Văn Linh, Phường X, Quận Y, TP. HCM
+                  </Text>
+                </div>
+              </Space>
+            )}
+
             <Modal
               title="Chọn khách hàng"
               visible={isModalVisible}
@@ -382,12 +391,8 @@ function Order() {
                   <List.Item
                     onClick={() => handleSelectCustomer(customer.name)}
                   >
-                    <List.Item.Meta
-                      title={customer.name}
-                    />
-                    <List.Item.Meta
-                       description={customer.phone}
-                    />
+                    <List.Item.Meta title={customer.name} />
+                    <List.Item.Meta description={customer.phone} />
                   </List.Item>
                 )}
               />
@@ -395,41 +400,30 @@ function Order() {
                 Tạo khách hàng mới
               </Button>
             </Modal>
-
-           
-            
-          
-        </Col>
-        <Col
-          style={{
-            padding: "1rem",
-            borderRadius: "10px",
-         
-            marginRight: 20,
-            maxHeight: 250,
-              background: colorBgContainer,
-            width: 600
-          }}
-        >
-          <Title style={{fontWeight: "bold", marginTop: 0 }} level={4}>
-            Ghi chú về khách hàng
-          </Title>
-          
-          <Space direction="vertical">
-          
-          <ul>
-              <li>Kỹ tính</li>
-              <li>Quan trọng chất lượng, tiền không phải vấn đề
-              </li>
-              <li>Giao hàng nhanh, đúng hẹn
-              </li>
-          </ul>
-        
-
-          </Space>
-        
           </Col>
-          
+          <Col
+            style={{
+              padding: "1rem",
+              borderRadius: "10px",
+
+              marginRight: 20,
+              maxHeight: 250,
+              background: colorBgContainer,
+              width: 600,
+            }}
+          >
+            <Title style={{ fontWeight: "bold", marginTop: 0 }} level={4}>
+              Ghi chú về khách hàng
+            </Title>
+
+            <Space direction="vertical">
+              <ul>
+                <li>Kỹ tính</li>
+                <li>Quan trọng chất lượng, tiền không phải vấn đề</li>
+                <li>Giao hàng nhanh, đúng hẹn</li>
+              </ul>
+            </Space>
+          </Col>
         </Row>
 
         <Row>
@@ -441,38 +435,24 @@ function Order() {
               marginRight: 20,
               maxHeight: 250,
               background: colorBgContainer,
-              
             }}
           >
-            <Title style={{ margin: 0, marginBottom: 16, fontWeight: "bold" }} level={4 }>
-            Thông tin người nhận
+            <Title
+              style={{ margin: 0, marginBottom: 16, fontWeight: "bold" }}
+              level={4}
+            >
+              Thông tin người nhận
             </Title>
 
             <Space direction="vertical" style={{ width: "100%" }}>
-              <Input
-                style={{ width: 400}}
-                placeholder="Tên người nhận" 
-                />
-                <Input
-                style={{ }}
-                placeholder="Số điện thoại" 
-                />
-                <Input
-                style={{ height: 100 }}
-                placeholder="Địa chỉ nhận hàng" 
-              />
+              <Input style={{ width: 400 }} placeholder="Tên người nhận" />
+              <Input style={{}} placeholder="Số điện thoại" />
+              <Input style={{ height: 100 }} placeholder="Địa chỉ nhận hàng" />
             </Space>
-          
           </Col>
         </Row>
-
-        
-        
       </Row>
 
-      
-          
-      
       <Card
         style={{
           margin: "20px auto",
@@ -480,22 +460,28 @@ function Order() {
           borderRadius: 10,
         }}
       >
-         <Row style={{
-          background: colorBgContainer,
-          borderRadius: "10px",
-
-        }}>
-          <Title style={{ margin: 0, marginBottom: 4, fontWeight: "bold" }} level={4}>
-            Sản phẩm  
+        <Row
+          style={{
+            background: colorBgContainer,
+            borderRadius: "10px",
+          }}
+        >
+          <Title
+            style={{ margin: 0, marginBottom: 4, fontWeight: "bold" }}
+            level={4}
+          >
+            Sản phẩm
           </Title>
 
           <Input
             style={{
               width: "100%",
               marginTop: 8,
-              marginBottom: 8
+              marginBottom: 8,
             }}
-            addonBefore={<SearchOutlined />} placeholder="Tìm kiếm sản phẩm" />
+            addonBefore={<SearchOutlined />}
+            placeholder="Tìm kiếm sản phẩm"
+          />
         </Row>
 
         <Table
@@ -505,7 +491,7 @@ function Order() {
           rowKey="key"
         />
       </Card>
-    
+
       <Row>
         <Col
           style={{
@@ -515,82 +501,102 @@ function Order() {
             marginRight: 20,
             maxHeight: 350,
             background: colorBgContainer,
-            
           }}
         >
-          <Title style={{ margin: 0, marginBottom: 16, fontWeight: "bold" }} level={4 }>
+          <Title
+            style={{ margin: 0, marginBottom: 16, fontWeight: "bold" }}
+            level={4}
+          >
             Thông tin thêm
           </Title>
           <Form form={form} layout="vertical" autoComplete="off">
             <Row>
               <Col>
-              <Typography style={{
-                  fontWeight: "bold",
-                  marginBottom: "8px"
-                }}>
+                <Typography
+                  style={{
+                    fontWeight: "bold",
+                    marginBottom: "8px",
+                  }}
+                >
                   Nhân viên xử lý
                 </Typography>
                 <Space>
                   <Select
                     defaultValue="Nguyễn Huỳnh Minh Anh"
                     style={{ width: "650px" }}
-                    options={[{ value: 'Phạm Thị Mộng Thùy', label: 'Phạm Thị Mộng Thùy' }]}  
+                    options={[
+                      {
+                        value: "Phạm Thị Mộng Thùy",
+                        label: "Phạm Thị Mộng Thùy",
+                      },
+                    ]}
                   />
                 </Space>
               </Col>
             </Row>
             <Row>
               <Col>
-              <Typography style={{
-                  fontWeight: "bold",
-                  marginBottom: "8px"
-                }}>
+                <Typography
+                  style={{
+                    fontWeight: "bold",
+                    marginBottom: "8px",
+                  }}
+                >
                   Thiết kế xác nhận
                 </Typography>
                 <Space>
                   <Select
                     defaultValue="Nguyễn Đoàn Quốc Bảo"
                     style={{ width: "650px" }}
-                    options={[{ value: 'Phạm Thị Mộng Thùy', label: 'Phạm Thị Mộng Thùy' }]}  
+                    options={[
+                      {
+                        value: "Phạm Thị Mộng Thùy",
+                        label: "Phạm Thị Mộng Thùy",
+                      },
+                    ]}
                   />
                 </Space>
               </Col>
             </Row>
             <Row gutter={16}>
               <Col flex={1}>
-                <Typography style={{
-                  fontWeight: "bold",
-                  marginTop: "8px",
-                  marginBottom: "8px"
-                }}>Ngày nhận hàng dự kiến</Typography>
+                <Typography
+                  style={{
+                    fontWeight: "bold",
+                    marginTop: "8px",
+                    marginBottom: "8px",
+                  }}
+                >
+                  Ngày nhận hàng dự kiến
+                </Typography>
                 <Space>
                   <Select
                     defaultValue="29/08/2024"
                     style={{ width: "650px" }}
-                    options={[{ value: '20/09/2024', label: '20/09/2024' }]}  
+                    options={[{ value: "20/09/2024", label: "20/09/2024" }]}
                   />
                 </Space>
               </Col>
             </Row>
             <Row>
               <Col>
-              <Typography style={{
-                  fontWeight: "bold",
-                  marginBottom: "8px",
-                  marginTop: "8px"
-
-                }}>
+                <Typography
+                  style={{
+                    fontWeight: "bold",
+                    marginBottom: "8px",
+                    marginTop: "8px",
+                  }}
+                >
                   Địa điểm nhận hàng
                 </Typography>
                 <Space>
                   <Input
                     style={{ width: "650px" }}
-                    placeholder="Nhập địa chỉ nhận hàng" 
+                    placeholder="Nhập địa chỉ nhận hàng"
                   />
                 </Space>
               </Col>
             </Row>
-            
           </Form>
         </Col>
         <Col
@@ -602,10 +608,13 @@ function Order() {
             background: colorBgContainer,
           }}
         >
-          <Title style={{ margin: 0, marginBottom: 16, fontWeight: "bold" }} level={4}>
+          <Title
+            style={{ margin: 0, marginBottom: 16, fontWeight: "bold" }}
+            level={4}
+          >
             Thông tin hóa đơn
           </Title>
-          
+
           <Space direction="vertical" style={{ width: "100%" }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Text>Tổng tiền hàng:</Text>
@@ -628,64 +637,67 @@ function Order() {
               <Text>Đặt cọc:</Text>
               <Text></Text>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "12px",
+              }}
+            >
               <Text>Còn lại:</Text>
-              <Text>  </Text>
+              <Text> </Text>
             </div>
           </Space>
-          
 
           <Form.Item name="note">
             <Input.TextArea placeholder="Nhập ghi chú" rows={3} />
           </Form.Item>
-          <Row style={{
-            gap: 20
-          }}>
+          <Row
+            style={{
+              gap: 20,
+            }}
+          >
             <Col>
-              <Button
-                Outlined
-              color="primary"
-              style={{
-              }}>LƯU THÔNG TIN
+              <Button Outlined color="primary" style={{}}>
+                LƯU THÔNG TIN
               </Button>
             </Col>
-           
+
             <Col>
-              <Button
-              type="primary"
-              style={{
-              }}>XÁC NHẬN ĐẶT HÀNG
+              <Button type="primary" style={{}}>
+                XÁC NHẬN ĐẶT HÀNG
               </Button>
-            </Col>  
+            </Col>
           </Row>
         </Col>
       </Row>
 
-      <Button
-        color="danger" variant="solid" Solid
-      >Xóa phiếu
+      <Button color="danger" variant="solid" Solid>
+        Xóa phiếu
       </Button>
 
-      
-      <Title style={{ margin: 0, marginTop: 24, marginBottom: 12, fontWeight: "bold" }} level={4 }>
-          LỊCH SỬ HOẠT ĐỘNG
+      <Title
+        style={{
+          margin: 0,
+          marginTop: 24,
+          marginBottom: 12,
+          fontWeight: "bold",
+        }}
+        level={4}
+      >
+        LỊCH SỬ HOẠT ĐỘNG
       </Title>
       <Space>
         <ul>
           <li>
-            <Row style={{ display: "flex", gap: 6}}>
+            <Row style={{ display: "flex", gap: 6 }}>
               <Col>09:20 29/08/2024: </Col>
               <Col>Phiếu được tạo bởi</Col>
-              <Col style={{color: "green"}}>Nguyễn Huỳnh Minh Anh</Col>
+              <Col style={{ color: "green" }}>Nguyễn Huỳnh Minh Anh</Col>
             </Row>
           </li>
         </ul>
-        
       </Space>
-      
-
-
-
     </Content>
   );
 }

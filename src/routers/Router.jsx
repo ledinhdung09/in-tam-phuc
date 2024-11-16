@@ -9,24 +9,108 @@ import Report from "../page/Report";
 import Client from "../page/Client/Client";
 import Settings from "../page/Settings";
 import AddClient from "../page/Client/AddClient";
+import Login from "../page/Auth/Login";
+import ProtectedRoute from "./ProtectedRoute"; // Đường dẫn đến file ProtectedRoute
 
 function RouterDashboard() {
+  // Kiểm tra trạng thái đăng nhập (ví dụ: token trong localStorage)
+  const isAuthenticated = !!localStorage.getItem("authToken");
+
   return (
-    <>
-      <Routes>
-        <Route path="/tong-quan" element={<Home />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/don-hang" element={<Order />} />
-        <Route path="/dat-hang-nha-in" element={<OrderPrinting />} />
-        <Route path="/nhap-va-giao-hang" element={<ImportAndDeliveryGoods />} />
-        <Route path="/tra-hang" element={<ReturnGoods />} />
-        <Route path="/nha-in" element={<PrintingHouse />} />
-        <Route path="/bao-cao" element={<Report />} />
-        <Route path="/khach-hang" element={<Client />} />
-        <Route path="/cau-hinh" element={<Settings />} />
-        <Route path="/khach-hang/tao-khach-hang" element={<AddClient />} />
-      </Routes>
-    </>
+    <Routes>
+      {/* Route không cần đăng nhập */}
+      <Route path="/dang-nhap" element={<Login />} />
+
+      {/* Routes cần bảo vệ */}
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/tong-quan"
+        element={
+          <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/don-hang"
+        element={
+          <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <Order />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dat-hang-nha-in"
+        element={
+          <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <OrderPrinting />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/nhap-va-giao-hang"
+        element={
+          <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <ImportAndDeliveryGoods />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/tra-hang"
+        element={
+          <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <ReturnGoods />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/nha-in"
+        element={
+          <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <PrintingHouse />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/bao-cao"
+        element={
+          <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <Report />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/khach-hang"
+        element={
+          <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <Client />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/cau-hinh"
+        element={
+          <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <Settings />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/khach-hang/tao-khach-hang"
+        element={
+          <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <AddClient />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
 }
 
